@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cugcs.famdoc.mapper.DoctorMapper">
+    <select id="loadDocByUser" resultType="com.cugcs.famdoc.model.Doctor">
+        select *
+        from doctor
+        where username = #{username};
+    </select>
+
+    <select id="getAllDoc" resultType="com.cugcs.famdoc.model.Doctor">
+        select *
+        from doctor
+        where username = #{username};
+    </select>
+
+    <insert id="doReg" parameterType="com.cugcs.famdoc.model.Doctor">
+        insert into doctor (username,doc_name,doc_sex,doc_tel,doc_idnum)
+        values (#{username},#{doc_name},#{doc_sex},#{doc_tel},#{doc_idnum});
+    </insert>
+
+    <update id="changedoc">
+        update doctor
+        set doc_name = #{doc_name},
+            doc_birth = #{doc_birth},
+            doc_sex = #{doc_sex},
+            doc_tel = #{doc_tel},
+            doc_idnum = #{doc_idnum}
+        where username = #{username}
+    </update>
+
+    <select id="getDocById" resultType="com.cugcs.famdoc.model.Doctor">
+        select *
+        from doctor
+        where doc_id = #{doc_id};
+    </select>
+
+</mapper>

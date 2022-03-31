@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cugcs.famdoc.mapper.HealthDataMapper">
+
+    <insert id="AddPatIdIntoHealth" parameterType="com.cugcs.famdoc.model.HealthData">
+        insert into healthdata(patient_id)
+        values (#{patientid});
+    </insert>
+
+    <select id="loadHealthByPatId" resultType="com.cugcs.famdoc.model.HealthData">
+        select *
+        from healthdata
+        where patient_id = #{patientid};
+    </select>
+
+    <select id="getAllHealthById" resultType="com.cugcs.famdoc.model.HealthData">
+        select *
+        from healthdata
+        where patient_id = #{patientid};
+    </select>
+
+    <update id="changeheal">
+        update healthdata
+        set height = #{height},
+            weight = #{weight},
+            allergy = #{allergy},
+            hbloodprs = #{hbloodprs},
+            lbloodprs = #{lbloodprs},
+            pastmedicalhistory = #{pastmedicalhistory},
+            other = #{other}
+        where patient_id = #{patient_id}
+    </update>
+
+    <update id="updateDate">
+        update healthdata
+        set weight = #{w},
+            hbloodprs = #{hb},
+            lbloodprs = #{lb}
+        where patient_id = #{pid}
+    </update>
+
+</mapper>

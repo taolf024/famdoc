@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cugcs.famdoc.mapper.MessageMapper">
+    <select id="getAllMessage" resultType="com.cugcs.famdoc.model.Message">
+        select *
+        from message
+        where patient_id = #{patient_id};
+    </select>
+
+    <insert id="addMessage">
+        insert message
+        set message_id = #{message_id},
+            message_user = #{message_user},
+            patient_id = #{patient_id},
+            patient_name = #{patient_name},
+            doc_id = #{doc_id},
+            message_usertime = #{message_usertime}
+    </insert>
+
+    <select id="getMessByPatAndDoc" resultType="com.cugcs.famdoc.model.Message">
+        select *
+        from message where doc_id = #{doc_id}
+        <if test="kong !=null">
+            and message_doc is NULL
+        </if>
+        limit #{page},#{pagesize}
+    </select>
+
+    <select id="getTotal" resultType="long">
+        select count(*)
+       from message where doc_id = #{doc_id}
+        <if test="kong !=null">
+            and message_doc is NULL
+        </if>
+    </select>
+
+    <select id="getAllMessageBydoc" resultType="com.cugcs.famdoc.model.Message">
+        select *
+        from message
+        where doc_id = #{doc_id};
+    </select>
+
+    <select id="getMessageByid" resultType="com.cugcs.famdoc.model.Message">
+        select *
+        from message
+        where message_id = #{messageid};
+    </select>
+
+    <update id="addMessageById">
+        update message
+        set message_doc = #{reply},
+            message_doctime = #{doctime}
+        where message_id = #{messageid}
+    </update>
+</mapper>

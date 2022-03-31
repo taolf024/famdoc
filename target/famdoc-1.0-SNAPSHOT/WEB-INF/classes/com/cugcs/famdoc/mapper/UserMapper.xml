@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cugcs.famdoc.mapper.UserMapper">
+    <select id="loadUserBynName" resultType="com.cugcs.famdoc.model.User">
+        select *
+        from users
+        where username = #{username};
+    </select>
+
+    <insert id="doReg" parameterType="com.cugcs.famdoc.model.User">
+        insert into users (username,password,status)
+        values (#{username},#{password},#{status});
+    </insert>
+
+    <update id="doChang">
+        update users
+        set username = #{un},
+            password = #{pw}
+        where username = #{un}
+    </update>
+
+    <select id="getAllUser" resultType="com.cugcs.famdoc.model.User">
+        select *
+        from users
+        where username = #{username};
+    </select>
+
+</mapper>

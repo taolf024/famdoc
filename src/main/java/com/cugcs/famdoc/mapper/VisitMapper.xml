@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cugcs.famdoc.mapper.VisitMapper">
+    <insert id="addNewVisit" parameterType="com.cugcs.famdoc.model.Visit">
+        insert into visit(patient_id,patient_name,doc_id,visit_time)
+        values (#{pid},#{pname},#{did},#{time});
+    </insert>
+
+    <select id="getvisit" resultType="com.cugcs.famdoc.model.Visit">
+        select *
+        from visit where doc_id=#{did}
+        <if test="time!=null">
+            and visit_time like concat('%',#{time},'%')
+        </if>
+    </select>
+
+    <select id="getvisitbypid" resultType="com.cugcs.famdoc.model.Visit">
+        select *
+        from visit where patient_id=#{pid}
+        <if test="time!=null">
+            and visit_time like concat('%',#{time},'%')
+        </if>
+    </select>
+</mapper>

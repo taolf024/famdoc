@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cugcs.famdoc.mapper.PatientMapper">
+    <select id="loadPatByUser" resultType="com.cugcs.famdoc.model.Patient">
+        select *
+        from patient
+        where username = #{username};
+    </select>
+
+    <select id="getAllPat" resultType="com.cugcs.famdoc.model.Patient">
+        select *
+        from patient
+        where username = #{username};
+    </select>
+
+    <insert id="doReg" parameterType="com.cugcs.famdoc.model.Patient">
+        insert into patient (username,patient_name,patient_sex,patient_tel,patient_idnum)
+        values (#{username},#{patient_name},#{patient_sex},#{patient_tel},#{patient_idnum});
+    </insert>
+
+    <update id="changepat">
+        update patient
+        set patient_name = #{patient_name},
+            patient_birth = #{patient_birth},
+            patient_sex = #{patient_sex},
+            patient_add = #{patient_add},
+            patient_tel = #{patient_tel},
+            patient_idnum = #{patient_idnum}
+        where username = #{username}
+    </update>
+
+    <select id="getAllPat2" resultType="com.cugcs.famdoc.model.Patient">
+        select *
+        from patient where doc_id=#{docid}
+        <if test="patient_name!=null">
+            and patient_name like concat('%',#{patient_name},'%')
+        </if>
+        <if test="patient_tel!=null">
+            and patient_tel like concat('%', #{patient_tel},'%')
+        </if>
+        limit #{page},#{pagesize}
+    </select>
+
+    <select id="getTotal" resultType="long">
+        select count(*)
+        from patient where doc_id=#{docid}
+        <if test="patient_name!=null">
+            and patient_name like concat('%',#{patient_name},'%')
+        </if>
+        <if test="patient_tel!=null">
+            and patient_tel like concat('%', #{patient_tel},'%')
+        </if>
+    </select>
+
+    <select id="getAllPat3" resultType="com.cugcs.famdoc.model.Patient">
+        select *
+        from patient where patient_name = #{patient_name} and patient_idnum = #{patient_idnum}
+        limit #{page},#{pagesize}
+    </select>
+
+    <select id="getTotal3" resultType="long">
+        select count(*)
+        from patient where patient_name = #{patient_name} and patient_idnum = #{patient_idnum}
+
+    </select>
+
+    <select id="getPatientById" resultType="com.cugcs.famdoc.model.Patient">
+        select *
+        from patient
+        where patient_id = #{patientid}
+    </select>
+
+    <update id="addDocToPat">
+        update patient
+        set doc_id=#{doc_id}
+        where patient_id = #{patientid}
+    </update>
+</mapper>
